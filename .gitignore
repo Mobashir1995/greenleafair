@@ -1,0 +1,12 @@
+
+wp-admin/
+wp-content/*
+wp-includes/
+.htaccess
+index.php
+license.txt
+readme.html
+wp-*.php
+xmlrpc.php
+
+!wp-content/themes
