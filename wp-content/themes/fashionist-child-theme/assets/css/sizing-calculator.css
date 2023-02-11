@@ -1,0 +1,177 @@
+.hvac-calculator-container {
+	border: 1px solid #58BB58;
+	border-radius: 4px;
+}
+
+.hvac-border{
+	width: 100%;
+	border-top: 1px solid #58BB58;
+}
+
+.hvac-w-25{
+	width: 25%;
+}
+
+.hvac-w-50{
+	width: 50%;
+}
+
+.hvac-calculator-heading{
+	padding: 10px;
+}
+.hvac-calculator-heading{
+	background: #58BB58;
+	display: flex;
+	align-items: center;
+	justify-content: space-between
+}
+.hvac-calculator-heading h2{
+	color: #fff;
+	margin: 0;
+}
+
+.hvac-calculator-heading a{
+	background: #fff;
+	padding: 10px 20px;
+	color: #58BB58;
+	border: 1px solid #58BB58;
+	border-radius: 3px;
+	transition: all 500ms;
+}
+
+.hvac-calculator-heading a:hover{
+	background: #58BB58;
+	color: #fff;
+	border-color:#fff;
+}
+
+#hvac-calculate-result-btn{
+	background: #58BB58;
+	padding: 10px 20px;
+	color: #fff;
+	border-radius: 3px;
+	transition: all 500ms;
+	border: 1px solid #58BB58;
+	outline: none;
+	cursor: pointer;
+}
+
+#hvac-calculate-result-btn:hover{
+	background: #fff;
+	color: #58BB58;
+}
+
+.hvac-sizing-calculator{
+	margin: 10px 0;
+}
+
+.hvac-sizing-calculator input[type='text'],
+.hvac-sizing-calculator select{
+	margin: 0;
+	border: 1px solid #58BB58;
+	border-radius: 4px;
+	padding: 5px 10px;
+	height: 40px;
+}
+
+.hvac-calculator-input{
+	padding: 10px;
+}
+
+.hvac-advanced-options{
+	display: none;
+}
+
+/* .border-right{
+	border-right: 1px solid #58BB58;
+} */
+
+.hvac-calculator-input label{
+	margin-bottom: 5px
+}
+
+.hvac-calculator-input label,
+.hvac-calculator-input input[type='text'],
+.hvac-calculator-input select {
+	display: block;
+	width: 100%;
+}
+.hvac-row {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: space-between
+}
+
+.hvac-justify-center{
+	justify-content: center;
+}
+
+.hvac-result-output {
+	display: none;
+}
+
+.hvac-result-output ul {
+	max-width: 440px;
+}
+
+/**
+ * Spinner Loader CSS.
+ */
+
+.hvac-calculator-loading.hvac-calculator-loader {
+	visibility: visible;
+}
+
+.hvac-calculator-loader {
+	background: #000;
+	border: none;
+	border-radius: 100%;
+	display: inline-block;
+	height: 24px;
+	margin: 0 24px;
+	opacity: 0.75;
+	padding: 0;
+	position: relative;
+	width: 24px;
+	visibility: hidden;
+}
+
+.hvac-calculator-loader::before {
+	-webkit-animation: hvac_calculator_spin 1000ms 100ms infinite normal linear;
+	animation: hvac_calculator_spin 1000ms 100ms infinite normal linear;
+	background: #fff;
+	border: none;
+	border-radius: 100%;
+	content: '';
+	height: 6px;
+	left: 4px;
+	position: absolute;
+	top: 4px;
+	-webkit-transform-origin: 8px 8px;
+	transform-origin: 8px 8px;
+	width: 6px;
+	z-index: 9999;
+}
+
+@media screen and (max-width: 420px) {
+	.hvac-w-25,
+	.hvac-w-50{
+		width: 100%;
+	}
+	.hvac-row{
+		flex-wrap: wrap;
+	}
+}
+
+@keyframes hvac_calculator_spin {
+	from {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
