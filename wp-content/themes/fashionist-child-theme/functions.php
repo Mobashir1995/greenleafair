@@ -71,6 +71,7 @@ add_action( 'woocommerce_before_single_product_summary', 'fashion_woocommerce_sh
 
 require_once get_stylesheet_directory() . '/inc/option-fields.php';
 require_once get_stylesheet_directory() . '/inc/shortcodes.php';
+require_once get_stylesheet_directory() . '/inc/force-comment.php';
 require_once get_stylesheet_directory() . '/inc/sizing-calculator/calculator.php';
 
 /**
