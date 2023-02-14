@@ -35,7 +35,7 @@ final class PD_Fashion_Sizing_Calculator {
 	 * @since 1.0.0
 	 */
 	public function hooks() {
-		add_shortcode( 'hvac_calculator', array( $this, 'hvasc_calculator_shortcode' ) );
+		add_shortcode( 'hvac_sizing_calculator', array( $this, 'hvasc_calculator_shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts_n_styles' ) );
 		add_action( 'wp_ajax_hvac_calculate_sizing', array( $this, 'calculate_sizing' ) );
 		add_action( 'wp_ajax_nopriv_hvac_calculate_sizing', array( $this, 'calculate_sizing' ) );
