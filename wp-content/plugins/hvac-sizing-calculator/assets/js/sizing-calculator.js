@@ -54,15 +54,15 @@ jQuery(document).ready(function(){
      */
     function calculateSizing( zipLookup, advanced ) {
             //progression.forEach(fullOpacity);
-            var area = $("#hvac-square-footage").val();
-            var ceilingHeight = $("#hvac-ceiling-height").val();
-            var sun = parseFloat($("#hvac-sunlight").val());
-            var windows = parseFloat($("#hvac-total-window").val());
-            var insulation = parseFloat($("#hvac-wall-installations").val());
+            var area = jQuery("#hvac-square-footage").val();
+            var ceilingHeight = jQuery("#hvac-ceiling-height").val();
+            var sun = parseFloat(jQuery("#hvac-sunlight").val());
+            var windows = parseFloat(jQuery("#hvac-total-window").val());
+            var insulation = parseFloat(jQuery("#hvac-wall-installations").val());
             var zone = 1.5;
-            var exteriorSeals = parseFloat($("#hvac-window-installations").val());
-            var people = parseFloat($("#hvac-occupants").val());
-            var kitchen = parseFloat($("#hvac-kitchens").val());
+            var exteriorSeals = parseFloat(jQuery("#hvac-window-installations").val());
+            var people = parseFloat(jQuery("#hvac-occupants").val());
+            var kitchen = parseFloat(jQuery("#hvac-kitchens").val());
             var heatBtuAreaMultiplier = 55 - 8 * zone;
             var coolBtuAreaMultiplier = 17 + zone; // based on zone
             var totalPeople = (people - 2) * 600; //600 per person after 2
@@ -78,14 +78,14 @@ jQuery(document).ready(function(){
             console.log( zipLookup );
 
             if( typeof zipLookup !== "undefined" && zipLookup !== null ){
-                $(".hvac-city-result").show();
-                $(".hvac-city-result span").text(zipLookup.City);
+                jQuery(".hvac-city-result").show();
+                jQuery(".hvac-city-result span").text(zipLookup.City);
                 roundDirection = zipLookup.Rounding;
                 baseCoolBtu = (zipLookup.MaxAvgTemp * 311 - 1500) * area / 1000;
                 baseHeatBtu = -(zipLookup.MinAvgTemp - 82) * 666 * area / 1000;
             }else{
-                $(".hvac-city-result").hide();
-                $(".hvac-city-result span").text('');
+                jQuery(".hvac-city-result").hide();
+                jQuery(".hvac-city-result span").text('');
                 baseCoolBtu = area * coolBtuAreaMultiplier;
                 baseHeatBtu = area * heatBtuAreaMultiplier;
             }
@@ -117,19 +117,19 @@ jQuery(document).ready(function(){
 
             jQuery( '.hvac-result-output' ).show();
 
-            //$("#cool_estimate").text("Cooling estimate: ");
-            $(".hvac-cooling-result .cooling-ton").text(coolBtuEstimate / 2 + " Tons");
-            $(".hvac-cooling-result .cooling-estimate").text(" (" + (coolBtuEstimate * 6000).toLocaleString() + " BTU)");
+            //jQuery("#cool_estimate").text("Cooling estimate: ");
+            jQuery(".hvac-cooling-result .cooling-ton").text(coolBtuEstimate / 2 + " Tons");
+            jQuery(".hvac-cooling-result .cooling-estimate").text(" (" + (coolBtuEstimate * 6000).toLocaleString() + " BTU)");
 
-            //$("#heat_estimate").text("Heating estimate: ");
-            $(".hvac-heating-result .heating-btu").text((heatBtuEstimate * 1000).toLocaleString());
-            //$(".hvac-heating-result .heating-estimate").text(" output BTU");
+            //jQuery("#heat_estimate").text("Heating estimate: ");
+            jQuery(".hvac-heating-result .heating-btu").text((heatBtuEstimate * 1000).toLocaleString());
+            //jQuery(".hvac-heating-result .heating-estimate").text(" output BTU");
 
-            $(".hvac-standard-size span").text( (furnaceSize * 20000).toLocaleString() + " BTU (" + (furnaceSize * 20000 * .8).toLocaleString() + " output BTU)");
-            $(".hvac-high-size span").text( (heFurnaceSize * 20000).toLocaleString() + " BTU (" + (heFurnaceSize * 20000 * .96).toLocaleString() + " output BTU)");
+            jQuery(".hvac-standard-size span").text( (furnaceSize * 20000).toLocaleString() + " BTU (" + (furnaceSize * 20000 * .8).toLocaleString() + " output BTU)");
+            jQuery(".hvac-high-size span").text( (heFurnaceSize * 20000).toLocaleString() + " BTU (" + (heFurnaceSize * 20000 * .96).toLocaleString() + " output BTU)");
             
-            //$(".estimateResult").hide();
-            //$(".estimateResult").fadeIn().attr("style","text-align:center");
+            //jQuery(".estimateResult").hide();
+            //jQuery(".estimateResult").fadeIn().attr("style","text-align:center");
         
     }
 });
