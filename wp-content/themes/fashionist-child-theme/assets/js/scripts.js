@@ -1,23 +1,43 @@
 jQuery(document).ready(function(){
    jQuery('.yith-wcpb-bundled-optional').on('change', function(){
 		if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
+			greenleaf_calculate_wc_custom_ppom_price();
 		}else{
 			greenleaf_calculate_wc_custom_simple_price();
 		}
 	});
 
-	jQuery('input[name="quantity"]').on('change', function(){
+	jQuery(document).on('ppom_wc_qty_updated', function(){
 		if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
+			greenleaf_calculate_wc_custom_ppom_price();
 		}else{
-			//greenleaf_calculate_wc_custom_simple_price();
+			greenleaf_calculate_wc_custom_simple_price();
 		}
 	});
 
-	jQuery('body').on('ppom_option_total_price_added',function(event, price, item){
-		if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
+	$("form.cart .quantity").on('change click', function(e) {
+	    e.preventDefault();
+	    if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
 			greenleaf_calculate_wc_custom_ppom_price();
+		}else{
+			greenleaf_calculate_wc_custom_simple_price();
 		}
 	});
+
+	// $("form.cart .quantity").on('click', function(e) {
+    //     e.preventDefault();
+    //     if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
+	// 		greenleaf_calculate_wc_custom_ppom_price();
+	// 	}else{
+	// 		greenleaf_calculate_wc_custom_simple_price();
+	// 	}
+    // });
+
+	// jQuery('body').on('ppom_option_total_price_added',function(event, price, item){
+	// 	if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
+	// 		greenleaf_calculate_wc_custom_ppom_price();
+	// 	}
+	// });
 });
 
 function greenleaf_calculate_wc_custom_simple_price(){
@@ -87,13 +107,15 @@ function greenleaf_calculate_wc_custom_ppom_price(){
 				bundle_price = price;
 			}
 	   }
+	   
 		if( jQuery(this).prop('checked')==true ) {
 			if( bundle_price > 0 ){
 				var quantity = jQuery('input[name="quantity"]').val();
 				var bundle_total_price = bundle_price * quantity;
 				all_bundled_price += bundle_total_price;
-				var html = '<tr class="ppom-option-price-list ppom-product-base-price custom-bundle-list" data-bundle_id="'+item_id+'" data-option_id="" data-data_name=""><th class="ppom-label-item">'+title+'</th><th class="ppom-price-item"><span>$<span class="ppom-price">'+ppom_get_formatted_price(bundle_total_price)+'</span></span></th></tr>';
+				var html = '<tr class="ppom-option-price-list greenleaf-ppom-custom-price-row custom-bundle-list" data-bundle_id="'+item_id+'" data-option_id="" data-data_name=""><th class="ppom-label-item">'+title+'</th><th class="ppom-price-item"><span>$<span class="ppom-price">'+ppom_get_formatted_price(bundle_total_price)+'</span></span></th></tr>';
 				setTimeout(function(){
+					jQuery(document).find('#ppom-price-container table .greenleaf-ppom-custom-price-row').remove();
 					jQuery(document).find('#ppom-price-container table').prepend(html);
 				},50);
 
@@ -103,9 +125,11 @@ function greenleaf_calculate_wc_custom_ppom_price(){
 		}
 	});
 	setTimeout(function(){
-		var price = jQuery(document).find('#ppom-price-container table .ppom-total-without-fixed .ppom-price').text();
+		var price = jQuery(document).find('#ppom-price-container table .ppom-product-base-price .ppom-price').text();
 		if( price != '' ){
+			var quantity = jQuery('input[name="quantity"]').val();
 			price = parseFloat(price.replace(",", ""));
+			price = price * quantity;
 		}
 		var total_price = price + all_bundled_price;
 		var formatted_price = ppom_get_formatted_price(total_price);
