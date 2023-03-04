@@ -1,45 +1,46 @@
 jQuery(document).ready(function(){
-   jQuery('.yith-wcpb-bundled-optional').on('change', function(){
-		if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
-			greenleaf_calculate_wc_custom_ppom_price();
-		}else{
-			greenleaf_calculate_wc_custom_simple_price();
-		}
+	greenleaf_trigger_custom_pricing();
+	/**
+	 * After Select/Deselect YITH Product Bundle options
+	 */
+	jQuery('.yith-wcpb-bundled-optional').on('change', function(){
+		greenleaf_trigger_custom_pricing();
 	});
 
+	/**
+	 * After Select/Deselect PPOM options
+	 */
+	jQuery('.ppom-field-wrapper input[type="checkbox"]').on('change', function(){
+		greenleaf_trigger_custom_pricing();
+	});
+
+	/**
+	 * After Updating Quantity
+	 */
 	jQuery(document).on('ppom_wc_qty_updated', function(){
-		if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
-			greenleaf_calculate_wc_custom_ppom_price();
-		}else{
-			greenleaf_calculate_wc_custom_simple_price();
-		}
+		greenleaf_trigger_custom_pricing();
 	});
 
-	$("form.cart .quantity").on('change click', function(e) {
+	/**
+	 * After Updating Quantity
+	 */
+	jQuery("form.cart .quantity").on('change click', function(e) {
 	    e.preventDefault();
-	    if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
-			greenleaf_calculate_wc_custom_ppom_price();
-		}else{
-			greenleaf_calculate_wc_custom_simple_price();
-		}
+	    greenleaf_trigger_custom_pricing();
 	});
-
-	// $("form.cart .quantity").on('click', function(e) {
-    //     e.preventDefault();
-    //     if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
-	// 		greenleaf_calculate_wc_custom_ppom_price();
-	// 	}else{
-	// 		greenleaf_calculate_wc_custom_simple_price();
-	// 	}
-    // });
-
-	// jQuery('body').on('ppom_option_total_price_added',function(event, price, item){
-	// 	if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
-	// 		greenleaf_calculate_wc_custom_ppom_price();
-	// 	}
-	// });
 });
 
+function greenleaf_trigger_custom_pricing(){
+	if( jQuery('form.cart').find('.ppom-wrapper').length > 0 ){
+		greenleaf_calculate_wc_custom_ppom_price();
+	}else{
+		greenleaf_calculate_wc_custom_simple_price();
+	}
+}
+
+/**
+ * For Simple Product
+ */
 function greenleaf_calculate_wc_custom_simple_price(){
 	var all_bundled_price = 0;
 	jQuery('.yith-wcpb-bundled-optional:checked').each(function(){
@@ -93,18 +94,21 @@ function greenleaf_calculate_wc_custom_simple_price(){
 	jQuery('form.cart:not(.yith-wcpb-bundle-form)').prepend('<input type="hidden" class="green-custom-product-price" name="green-custom-product-price" value="'+total_price+'" />');
 }
 
+/**
+ * For PPOM Enabled Products
+ */
 function greenleaf_calculate_wc_custom_ppom_price(){
 	var all_bundled_price = 0;
 	jQuery('.yith-wcpb-bundled-optional:checked').each(function(){
-		var price = jQuery(this).parents('.yith-wcpb-product-bundled-item-data').find('.price .amount bdi').text();
+		var bundle_item_price = jQuery(this).parents('.yith-wcpb-product-bundled-item-data').find('.price .amount bdi').text();
 		var title = jQuery(this).parents('.yith-wcpb-product-bundled-item-data').find('h3').text();
 		var item_id = jQuery(this).data('item-id');
 		var bundle_price = 0;
-		if( price != '' ){
-			price = price.replace(",","");
-			price = parseFloat(price.replace("$", ""));
-			if( price > 0 ){
-				bundle_price = price;
+		if( bundle_item_price != '' ){
+			bundle_item_price = bundle_item_price.replace(",","");
+			bundle_item_price = parseFloat(bundle_item_price.replace("$", ""));
+			if( bundle_item_price > 0 ){
+				bundle_price = bundle_item_price;
 			}
 	   }
 	   
@@ -124,19 +128,33 @@ function greenleaf_calculate_wc_custom_ppom_price(){
 			// jQuery('#ppom-price-container table tr:last-of-type').before(html);
 		}
 	});
+
 	setTimeout(function(){
-		var price = jQuery(document).find('#ppom-price-container table .ppom-product-base-price .ppom-price').text();
+
+		if( jQuery('.ppom-option-total-price .ppom-price').length > 0 ){
+			var ppom_raw_price = jQuery('.ppom-option-total-price .ppom-price').text();
+			if( ppom_raw_price != '' ) {
+				ppom_raw_price = ppom_raw_price.replace(",","");
+				ppom_raw_price = parseFloat(ppom_raw_price.replace("$", ""));
+				if( ppom_raw_price > 0 ) {
+					all_bundled_price += ppom_raw_price;
+				}
+			}
+		}
+		
+		var price = jQuery(document).find('#ppom-price-container table .ppom-product-base-price .ppom-price-item .ppom-price').text();
 		if( price != '' ){
 			var quantity = jQuery('input[name="quantity"]').val();
 			price = parseFloat(price.replace(",", ""));
 			price = price * quantity;
 		}
 		var total_price = price + all_bundled_price;
+		
 		var formatted_price = ppom_get_formatted_price(total_price);
 		jQuery(document).find('#ppom-price-container table .ppom-total-without-fixed .ppom-price').text(formatted_price);
 		jQuery('form.cart').find('.green-custom-product-price').remove();
 		var quantity = jQuery('input[name="quantity"]').val();
-		total_price = total_price / quantity;
+		// total_price = total_price / quantity;
 		jQuery('form.cart:not(.yith-wcpb-bundle-form)').prepend('<input type="hidden" class="green-custom-product-price" name="green-custom-product-price" value="'+total_price+'" />');
 	},50);
 }

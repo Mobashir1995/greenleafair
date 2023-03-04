@@ -103,7 +103,11 @@ if(isset($_GET['style'])){
 									<span class="headline"><?php esc_html_e('Description','fashionist'); ?></span>
 									<div class="description"><?php echo apply_filters( 'woocommerce_short_description', $post->post_excerpt ); ?></div>
 									<div class="old-add-to-cart">
-									<?php woocommerce_template_single_add_to_cart();  ?>
+										<?php
+											if ( $product->is_type( 'yith_bundle' ) ) {
+												woocommerce_template_single_add_to_cart();
+											}
+										?>
 									</div>
 								
 									
