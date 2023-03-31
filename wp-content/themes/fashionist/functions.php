@@ -1059,15 +1059,3 @@ function site_address_map($atts){
     	return ob_get_clean();
 }
 add_shortcode('site_address_map','site_address_map');
-
-	
-    function cw_change_product_price_display( $price ) {
-    	if(!empty($price)){ 
-    $price .= '</del><div id="bread-as-low-as" class="bread-text bread-as-low-as" style="display: block;">
-        <a href="'. get_field('url').'" id="bread-as-low-as-amount" class="bread-amt">'.get_field('price_content').'</a>
-    </div>';
-    return $price;
-}
-}
-add_filter( 'woocommerce_get_price_html', 'cw_change_product_price_display' );
-//add_filter( 'woocommerce_cart_item_price', 'cw_change_product_price_display' );
