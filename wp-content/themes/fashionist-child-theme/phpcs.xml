@@ -22,10 +22,10 @@
 	<exclude-pattern>ultimate-member/*</exclude-pattern>
 	<exclude-pattern>woocommerce/*</exclude-pattern>
 	<exclude-pattern>footer.php</exclude-pattern>
-	<exclude-pattern>functions.php</exclude-pattern>
+	<!-- <exclude-pattern>functions.php</exclude-pattern> -->
 	<exclude-pattern>header.php</exclude-pattern>
 	<exclude-pattern>inc/option-fields.php</exclude-pattern>
-	<exclude-pattern>inc/shortcodes.php</exclude-pattern>
+	<!-- <exclude-pattern>inc/shortcodes.php</exclude-pattern> -->
 
 	<!-- WordPress minimum version check. -->
 	<config name="minimum_supported_wp_version" value="5.8"/>
