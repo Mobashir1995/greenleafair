@@ -177,3 +177,8 @@ function bbloomer_price_free_zero_empty( $price, $product ) {
 	return $price;
 }
 add_filter( 'woocommerce_get_price_html', 'bbloomer_price_free_zero_empty', 9999, 2 );
+
+function pd_remove_product_price_display() {
+	remove_filter( 'woocommerce_get_price_html', 'cw_change_product_price_display', 10 );
+}
+add_action('init','pd_remove_product_price_display');
