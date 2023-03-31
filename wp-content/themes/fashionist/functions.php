@@ -1068,6 +1068,6 @@ add_shortcode('site_address_map','site_address_map');
     </div>';
     return $price;
 }
-}
+} 
 add_filter( 'woocommerce_get_price_html', 'cw_change_product_price_display' );
 //add_filter( 'woocommerce_cart_item_price', 'cw_change_product_price_display' );
