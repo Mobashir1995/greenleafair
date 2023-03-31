@@ -1058,6 +1058,7 @@ function site_address_map($atts){
     	}
     	return ob_get_clean();
 }
+<<<<<<< HEAD
 add_shortcode('site_address_map','site_address_map');
 
 	
@@ -1071,3 +1072,6 @@ add_shortcode('site_address_map','site_address_map');
 } 
 add_filter( 'woocommerce_get_price_html', 'cw_change_product_price_display' );
 //add_filter( 'woocommerce_cart_item_price', 'cw_change_product_price_display' );
+=======
+add_shortcode('site_address_map','site_address_map');
+>>>>>>> e7e24ca14997ad57fb2c61866dc272d9788d2dea
